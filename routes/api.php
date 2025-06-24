@@ -20,3 +20,5 @@ Route::get('/events/{category_id}', [App\Http\Controllers\Api\EventController::c
 Route::get('/event-categories', [App\Http\Controllers\Api\EventController::class, 'categories']);
 
 Route::get('/event/{event_id}', [App\Http\Controllers\Api\EventController::class, 'detail']);
+
+Route::post('/order', [App\Http\Controllers\Api\OrderController::class, 'create'])->middleware('auth:sanctum');
