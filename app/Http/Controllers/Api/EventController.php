@@ -46,7 +46,7 @@ class EventController extends Controller
     }
 
     //detail event and sku by event_id
-    public function detail($request)
+    public function detail(Request $request)
     {
         //event by event_id
         $event = Event::find($request->event_id);
