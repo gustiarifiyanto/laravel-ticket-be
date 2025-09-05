@@ -8,21 +8,25 @@ use App\Models\Event;
 use App\models\EventCategory; // Assuming you have an Event model
 
 
+
 class EventController extends Controller
 {
     //index
-    public function index($request)
+    public function index(Request $request)
     {
         //event by category_id
-        $events = Event::where('event_category_id', $request->category_id)->get();
+        $categoryId = $request->input('category_id');
+        $events = [];   
         //if category_id all
-        if ($request->category_id == 'all') {
+        if ($categoryId == 'all') {
             $events = Event::all();
+        }else{
+            $events = Event::where('event_category_id', $categoryId)->get();
         }
         //all event
         //$events = Event::all(); 
         //load event_category and vendor
-        $events->load(['eventCategory', 'vendor']);
+        $events->load('eventCategory', 'vendor');
         return response()->json([
             'status' => 'success',
             'message' => 'Events fetched successfully',
