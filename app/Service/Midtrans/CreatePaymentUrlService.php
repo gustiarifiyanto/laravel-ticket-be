@@ -24,19 +24,22 @@ class CreatePaymentUrlService extends Midtrans
         $item_details = new Collection();
 
         foreach ($order->orderItems as $item) {
-            $sku = Sku::find($item->sku_id);
+            $sku = Sku::find($item['sku_id']);
             $item_details->push([
                 'id' => $sku->id,
                 'price' => $sku->price,
-                'quantity' => $item->quantity,
+                'quantity' => $item['qty'],
                 'name' => $sku->name,
             ]);
         }
 
+        //Random order id
+        $orderId = rand(1000, 9999);
+
         $params = [
             'transaction_details' => [
-                'order_id' => $order->number,
-                'gross_amount' => $order->total,
+                'order_id' => $orderId,
+                'gross_amount' => $order->total_price,
             ],
             'item_details' => $item_details,
             'customer_details' => [

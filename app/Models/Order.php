@@ -10,7 +10,7 @@ class Order extends Model
         'user_id',
         'event_id',
         'quantity',
-        'total',
+        'total_price',
         'status',
         'event_date',
     ];

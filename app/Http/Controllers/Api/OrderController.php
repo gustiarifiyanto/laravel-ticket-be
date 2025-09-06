@@ -39,9 +39,8 @@ class OrderController extends Controller
             'user_id' => $request->user()->id, // Assuming the user is authenticated
             'event_id' => $request->event_id,
             'event_date' => $request->event_date,
-            'sku_id' => $request->sku_id,
             'quantity' => $request->quantity,
-            'total' => $total,
+            'total_price' => $total,
             
         ]); 
 
@@ -69,6 +68,7 @@ class OrderController extends Controller
         $midtrans = new CreatePaymentUrlService();
         $user = $request->user();
         $order['user'] = $user;
+        $order['orderItems'] = $request->order_details;
         $paymentUrl = $midtrans->getPaymentUrl($order);
         $order['payment_url'] = $paymentUrl;
 
